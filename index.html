@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculator</title>
+
+<style>
+    body {
+        font-family: Arial;
+        background-color: #ffffff;
+        display: flex;
+        justify-content: center;
+        margin-top: 30px;
+        transition: background-color 0.3s;
+    }
+
+    .calc {
+        background: #d9f0ff;
+        padding: 20px;
+        border-radius: 12px;
+        width: 350px;
+        transition: background 0.3s, color 0.3s;
+    }
+
+    input {
+        width: 91%;
+        height: 45px;
+        font-size: 22px;
+        margin-bottom: 15px;
+        padding: 5px;
+        border-radius: 6px;
+        border: 2px solid gray;
+        transition: background 0.3s, color 0.3s;
+    }
+
+    .btn {
+        width: 70px;
+        height: 45px;
+        margin: 5px;
+        border-radius: 8px;
+        border: none;
+        font-size: 17px;
+        cursor: pointer;
+        background: #afd4ec;
+        transition: background 0.3s, color 0.3s;
+    }
+
+    .num {
+        background: #6faad4;
+        color: white;
+        font-weight: bold;
+    }
+
+    .equal {
+        background: #2e87c6;
+        color: white;
+        font-weight: bold;
+    }
+
+    /* Dark mode styles */
+    body.dark {
+        background-color: #1e1e1e;
+        color: #ffffff;
+    }
+
+    .calc.dark {
+        background: #2c2c2c;
+        color: #ffffff;
+    }
+
+    input.dark {
+        background-color: #3a3a3a;
+        color: #ffffff;
+        border: 2px solid #555555;
+    }
+
+    .btn.dark {
+        background: #555555;
+        color: #ffffff;
+    }
+
+    .num.dark {
+        background: #888888;
+    }
+
+    .equal.dark {
+        background: #1e90ff;
+    }
+
+</style>
+
+<script>
+let result_shown = false;
+
+// Clear display
+const clear_btn = () => {
+    display_box.value = "";
+    result_shown = false;
+};
+
+// Add number or operator
+const num = (a) => {
+    if (result_shown) {
+        display_box.value = "";
+        result_shown = false;
+    }
+    display_box.value += a;
+};
+
+// Evaluate expression
+const equal_btn = () => {
+    try {
+        display_box.value = eval(display_box.value);
+        result_shown = true;
+    } catch {
+        display_box.value = "Error";
+    }
+};
+
+// Toggle light/dark theme
+function toggleTheme() {
+    const body = document.body;
+    const calc = document.querySelector(".calc");
+    const inputBox = document.getElementById("display_box");
+    const buttons = document.querySelectorAll(".btn");
+
+    body.classList.toggle("dark");
+    calc.classList.toggle("dark");
+    inputBox.classList.toggle("dark");
+    buttons.forEach(btn => btn.classList.toggle("dark"));
+
+    const themeBtn = document.getElementById("themeBtn");
+    themeBtn.innerText = body.classList.contains("dark") ? "Light" : "Dark";
+}
+</script>
+</head>
+
+<body>
+<div class="calc">
+
+    <!-- Theme toggle button -->
+    <button class="btn" id="themeBtn" onclick="toggleTheme()">Dark</button>
+    
+    <h1>Calculator</h1>
+
+    <input type="text" id="display_box">
+
+    <button class="btn" onclick="num('(')">(</button>
+    <button class="btn" onclick="num(')')">)</button>
+    <button class="btn" onclick="num('%')">%</button>
+    <button class="btn" onclick="clear_btn()">AC</button>
+
+
+    <button class="btn num" onclick="num('7')">7</button>
+<button class="btn num" onclick="num('8')">8</button>
+<button class="btn num" onclick="num('9')">9</button>
+
+<button class="btn" onclick="num('+')">+</button>
+
+
+
+<button class="btn num" onclick="num('4')">4</button>
+<button class="btn num" onclick="num('5')">5</button>
+<button class="btn num" onclick="num('6')">6</button>
+
+
+<button class="btn" onclick="num('-')">−</button>
+  
+
+
+
+
+    <button class="btn num" onclick="num('1')">1</button>
+<button class="btn num" onclick="num('2')">2</button>
+<button class="btn num" onclick="num('3')">3</button>
+
+
+<button class="btn" onclick="num('*')">×</button>
+
+<button class="btn num" onclick="num('0')">0</button>
+<button class="btn num" onclick="num('.')">.</button>
+
+
+
+
+
+  <button class="btn" onclick="num('Math.sqrt(')">√</button>
+  <button class="btn" onclick="num('/')">÷</button>
+
+  <button class="btn num" onclick="num('3.141592653589793')">π</button>
+
+
+
+
+
+
+    <button class="btn" onclick="num('**')">^</button>
+
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <button class="btn equal" onclick="equal_btn()">=</button>
+
+</div>
+</body>
+</html>
